@@ -52,7 +52,10 @@ import random
 # print(unpaired)
 
 
-def solution(A):
+def solution1(A):
+    # My solution: ran 11 tests in ~0.95s
+    # Time complexity O(N)
+    # Space complexity O(1)
     if len(A) == 1:
         return A[0]
     
@@ -63,6 +66,19 @@ def solution(A):
         unpaired ^= n
 
     return unpaired
+
+
+def solution2(A):
+    # Solution by github.com/johnmee: ran 11 tests in ~ 1.2s
+    # Slower and more memory intensive
+    unmatched = set()
+    for element in A:
+        try:
+            unmatched.remove(element)
+        except KeyError:
+            unmatched.add(element)
+    return unmatched.pop()
+
 
 
 class TestOddOccurencesInArray(unittest.TestCase):
@@ -95,51 +111,51 @@ class TestOddOccurencesInArray(unittest.TestCase):
 
     def test_example1(self):
         arr = [9, 3, 9, 3, 9, 7, 9]
-        self.assertEqual(7, solution(arr))
+        self.assertEqual(7, solution1(arr))
 
     def test_simple1(self):
         """simple test n=5"""
         arr = self.gen_array(5, 4)
-        self.assertEqual(4, solution(arr))
+        self.assertEqual(4, solution1(arr))
 
     def test_simple2(self):
         """simple test n=11"""
         arr = self.gen_array(11, 4)
-        self.assertEqual(4, solution(arr))
+        self.assertEqual(4, solution1(arr))
 
     def test_extreme_single_item(self):
         """list containing one item"""
-        self.assertEqual(42, solution([42]))
+        self.assertEqual(42, solution1([42]))
 
     def test_small1(self):
         """small random test n=201"""
         arr = self.gen_array(201, 42)
-        self.assertEqual(42, solution(arr))
+        self.assertEqual(42, solution1(arr))
 
     def test_small2(self):
         """small random test n=601"""
         arr = self.gen_array(601, 4242)
-        self.assertEqual(4242, solution(arr))
+        self.assertEqual(4242, solution1(arr))
 
     def test_medium1(self):
         """medium random test n=2001"""
         arr = self.gen_array(2001, 100)
-        self.assertEqual(100, solution(arr))
+        self.assertEqual(100, solution1(arr))
 
     def test_medium2(self):
         """medium random test n=100,003"""
         arr = self.gen_array(100003, 500000)
-        self.assertEqual(500000, solution(arr))
+        self.assertEqual(500000, solution1(arr))
 
     def test_big1(self):
         """big random test n=999,999, multiple repetitions"""
         arr = self.gen_array(100003, 700)
-        self.assertEqual(700, solution(arr))
+        self.assertEqual(700, solution1(arr))
 
     def test_big2(self):
         """big random test n=999,999"""
         arr = self.gen_array(999999, 5000111222)
-        self.assertEqual(5000111222, solution(arr))
+        self.assertEqual(5000111222, solution1(arr))
 
 
 if __name__ == '__main__':
