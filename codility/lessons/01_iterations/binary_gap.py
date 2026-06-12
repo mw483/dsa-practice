@@ -24,13 +24,20 @@ N is an integer within the range [1..2,147,483,647].
 import unittest
 
 def solution(N):
-    if N == 0:
-        return 0
+    # Strip and split string solution  
+    binary_string = str(bin(N)[2:])
+
+    # strip leading and trailing zeros
+    cleaned_binary = binary_string.strip('0')
+
+    # split the clean binary based on the 1s
+    gaps = cleaned_binary.split('1')
+
+    # get the length of the longest gap
+    longest_gap = max(len(gap) for gap in gaps)
     
-    # initialize counters
-    count = 0
-    
-    return final_count
+    return longest_gap
+
 
 class TestBinaryGap(unittest.TestCase):
     MAXINT = 2147483647  # The largest input we need worry about.
