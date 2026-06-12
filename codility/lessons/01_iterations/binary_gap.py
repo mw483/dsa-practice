@@ -24,7 +24,13 @@ N is an integer within the range [1..2,147,483,647].
 import unittest
 
 def solution(N):
-    return
+    if N == 0:
+        return 0
+    
+    # initialize counters
+    count = 0
+    
+    return final_count
 
 class TestBinaryGap(unittest.TestCase):
     MAXINT = 2147483647  # The largest input we need worry about.
